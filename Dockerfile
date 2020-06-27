@@ -6,7 +6,10 @@ RUN mkdir /code
 COPY ./ /code/
 WORKDIR /code
 RUN groupadd -r nginx && useradd -r -g nginx nginx
-RUN python install.py install
+RUN python install.py install \
+    && chmod -R 777 /opt/verynginx/verynginx/configs
+
+VOLUME [ "/opt/verynginx/verynginx/configs", "/opt/verynginx/verynginx/nginx_conf" ]
 
 EXPOSE 80
 
